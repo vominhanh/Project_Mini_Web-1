@@ -1,0 +1,7 @@
+/Users/mac/training-system/keycloak-provider/src/main/java/com/training/config/DatabaseUtil.java
+/Users/mac/training-system/keycloak-provider/src/main/java/com/training/entity/AppUserEntity.java
+/Users/mac/training-system/keycloak-provider/src/main/java/com/training/provider/CustomUserAdapter.java
+/Users/mac/training-system/keycloak-provider/src/main/java/com/training/provider/CustomUserStorageProvider.java
+/Users/mac/training-system/keycloak-provider/src/main/java/com/training/provider/CustomUserStorageProviderFactory.java
+/Users/mac/training-system/keycloak-provider/src/main/java/com/training/repository/UserRepository.java
+/Users/mac/training-system/keycloak-provider/src/main/java/com/training/service/UserService.java
