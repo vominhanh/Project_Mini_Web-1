@@ -28,7 +28,7 @@ public class KeycloakService {
     @Value("${keycloak.client-id}")
     private String clientId;
 
-    @Value("${keycloak.client-secret}")
+    @Value("${keycloak.client-secret:}")
     private String clientSecret;
 
     public Map login(
@@ -52,7 +52,9 @@ public class KeycloakService {
                 new LinkedMultiValueMap<>();
 
         body.add("client_id", clientId);
-        body.add("client_secret", clientSecret);
+        if (clientSecret != null && !clientSecret.isEmpty()) {
+            body.add("client_secret", clientSecret);
+        }
         body.add("grant_type", "password");
         body.add("username", username);
         body.add("password", password);
@@ -63,14 +65,26 @@ public class KeycloakService {
         RestTemplate restTemplate =
                 new RestTemplate();
 
-        ResponseEntity<Map> response =
-                restTemplate.exchange(
-                        url,
-                        HttpMethod.POST,
-                        entity,
-                        Map.class
-                );
+        try {
+            ResponseEntity<Map> response =
+                    restTemplate.exchange(
+                            url,
+                            HttpMethod.POST,
+                            entity,
+                            Map.class
+                    );
 
-        return response.getBody();
+            return response.getBody();
+        } catch (org.springframework.web.client.RestClientResponseException e) {
+            Map<String, Object> errorMap = new java.util.HashMap<>();
+            errorMap.put("error", "Login failed");
+            errorMap.put("details", e.getResponseBodyAsString());
+            return errorMap;
+        } catch (Exception e) {
+            Map<String, Object> errorMap = new java.util.HashMap<>();
+            errorMap.put("error", "Login failed");
+            errorMap.put("details", e.getMessage());
+            return errorMap;
+        }
     }
 }

@@ -2,27 +2,20 @@ server:
   port: 8080
 
 spring:
-
   datasource:
+    url: jdbc:postgresql://localhost:5432/training_auth
 
-    url:
-      jdbc:postgresql://localhost:5432/training_auth
+    username: postgres
 
-    username:
-      training_owner
-
-    password:
-      123456
+    password: 123321
 
   jpa:
-
-    hibernate: 
+    hibernate:
       ddl-auto: update
 
     show-sql: true
 
 keycloak:
   auth-server-url: http://localhost:8081
-  realm: training-realm
-  client-id: training-client
-  client-secret: XjpWjUFD9CFOBczB6fAdATxeC9YQIX0M
+  realm: master
+  client-id: admin-cli
